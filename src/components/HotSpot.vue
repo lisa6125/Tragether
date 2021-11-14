@@ -1,0 +1,137 @@
+<template>
+    <div class="hot_spot">
+      <div class="title">
+        <img src="../assets/icon/hot_spot.png" alt="">
+      </div>
+      <div class="box">
+        <div class="col">
+          <div class="pic">
+            <img src="https://www.taiwan10000.com/wp-content/uploads/2017/01/%E4%B9%9D%E4%BB%BD1-595x397.jpg" alt="九份">
+            <div class="name">九份</div>
+          </div>
+        </div>
+        <div class="col half">
+          <div class="pic_half">
+            <img src="https://www.taiwan10000.com/wp-content/uploads/2017/04/%E6%97%A5%E6%9C%88%E6%BD%AD1-595x397.jpg" alt="日月潭">
+            <div class="name">日月潭</div>
+          </div>
+          <div class="pic_half">
+            <img src="https://www.taiwan10000.com/wp-content/uploads/2017/04/%E5%A2%BE%E4%B8%81-595x397.jpg" alt="墾丁">
+            <div class="name">墾丁</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="pic">
+            <img src="https://www.taiwan10000.com/wp-content/uploads/2017/04/%E5%A4%AA%E9%AD%AF%E9%96%A3-595x397.jpg" alt="太魯閣">
+            <div class="name">太魯閣</div>
+          </div>
+        </div>
+        <div class="col half">
+          <div class="pic_half">
+            <img src="https://www.taiwan10000.com/wp-content/uploads/2017/03/%E9%98%BF%E9%87%8C%E5%B1%B1%E5%B0%8F%E7%81%AB%E8%BB%8A-595x337.jpg" alt="阿里山">
+            <div class="name">阿里山</div>
+          </div>
+          <div class="pic_half">
+            <img src="https://www.taiwan10000.com/wp-content/uploads/2017/03/%E7%87%AD%E5%8F%B0%E7%9F%B3-595x382.jpg" alt="野柳">
+            <div class="name">野柳</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="pic">
+            <img src="https://www.taiwan10000.com/wp-content/uploads/2017/01/8ea94f54-42a5-45d4-ade1-6b3e382dd7c0-595x397.jpg" alt="平溪">
+            <div class="name">平溪</div>
+          </div>
+        </div>
+      </div>
+    </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style lang="scss">
+@import "../assets/scss/_variables.scss";
+  .hot_spot{
+    margin: 50px 30px;
+    .title{
+      width: 150px;
+      margin-bottom: 20px;
+      img{
+        @extend %img-set;
+      }
+    }
+    .box{
+      width: 100%;
+      height: 300px;
+      @extend %flex-wrap;
+      .col{
+        width: 20%;
+        height: 100%;
+        .pic{
+          width:calc(100% - 10px);
+          height: calc(100% - 10px);
+          position: relative;
+          border-radius: 10px;
+          overflow: hidden;
+          margin: 5px;
+          position: relative;
+          cursor: pointer;
+          img{
+            @extend %img-cover;
+            @extend %position-center;
+            transition: 0.3s ease-in-out all;
+          }
+          &:hover{
+            img{
+              width: 120%;
+              height: 120%;
+              filter: brightness(0.7);
+              transition: 0.3s ease-in-out all;
+            }
+          }
+        }
+        .pic_half{
+          width:calc(100% - 5px);
+          height: calc(50% - 5px);
+          position: relative;
+          border-radius: 10px;
+          overflow: hidden;
+          cursor: pointer;
+          img{
+            @extend %img-cover;
+            @extend %position-center;
+            transition: 0.3s ease-in-out all;
+          }
+            &:hover{
+              img{
+                width: 120%;
+                height: 120%;
+                filter: brightness(0.7);
+                transition: 0.3s ease-in-out all;
+              }
+            }
+        }
+        .name{
+          color: white;
+          font-size: 20px;
+          letter-spacing: 2px;
+          font-weight: 600;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%,-50%);
+        }
+      }
+      .half{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 0px;
+      }
+    }
+  }
+</style>
