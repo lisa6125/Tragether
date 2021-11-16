@@ -18,7 +18,7 @@ const getAuthHeader = () => {
 // $count=true 查看 API 剩餘次數
 
 // 抓取 景點/餐飲/旅宿/活動 相關資料
-const getTravelInfo = (mode, city, page = 1, catchNum , keyword = null) => {
+const getTravelInfo = (mode, city, page = 1, catchNum = 18, keyword = null) => {
   city = city === "Taiwan" ? "" : city;
   let url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/${mode}/${city}?`;
   url += `$top=${catchNum}&$skip=${(page - 1) * catchNum}&$format=JSON`;
@@ -28,9 +28,9 @@ const getTravelInfo = (mode, city, page = 1, catchNum , keyword = null) => {
   if (mode === "Hotel") url += ",Class";
   if (mode === "Activity") url += ",Class1,Class2";
   url += `&$filter=Picture/PictureUrl1 ne null`;
-  if (keyword) {
+  if (keyword && keyword !== 0) {
     let filter = "";
-    keyword.split(",").forEach((k) => {
+    keyword.split(",").forEach(k => {
       filter += ` or contains(Name,'${k}')`;
       filter += ` or contains(Description,'${k}')`;
       filter += ` or contains(Address,'${k}')`;
@@ -43,7 +43,7 @@ const getTravelInfo = (mode, city, page = 1, catchNum , keyword = null) => {
     filter = filter.replace(" or ", "");
     url += ` and (${filter})`;
   }
-  return axios.get(url, { headers: getAuthHeader() }).then((res) => res.data);
+  return axios.get(url, { headers: getAuthHeader() }).then(res => res.data);
 };
 
 // 抓取 景點/餐飲/旅宿/活動 鄰近相關資料
@@ -57,23 +57,24 @@ const getNearbyInfo = (mode, lat, lon, page = 1) => {
   if (mode === "Activity") url += ",Class1,Class2";
   url += `&$spatialFilter=nearby(${lat},${lon},50000)`;
   url += `&$filter=Picture/PictureUrl1 ne null`;
-  return fetch(url, { headers: getAuthHeader() }).then((res) => res.json());
+  return fetch(url, { headers: getAuthHeader() }).then(res => res.json());
 };
 
 // 取得單筆資料
-const getDetail = (ID) => {
+const getDetail = ID => {
   let url = "https://ptx.transportdata.tw/MOTC/v2/Tourism/";
   url += `${getMode(ID, true)}/?$filter=ID eq '${ID}'&$format=JSON`;
   return fetch(url, { headers: getAuthHeader() })
-    .then((res) => res.json())
-    .then((res) => {
+    .then(res => res.json())
+    .then(res => {
       if (res.length === 0) throw new Error();
       res[0].modeName = getMode(res[0].ID);
       if (res[0].Description)
         res[0].Description = res[0].Description.split("。").join("。\n\n");
       if (res[0].DescriptionDetail)
-        res[0].DescriptionDetail =
-          res[0].DescriptionDetail.split("。").join("。\n\n");
+        res[0].DescriptionDetail = res[0].DescriptionDetail.split("。").join(
+          "。\n\n"
+        );
       if (res[0].TravelInfo)
         res[0].TravelInfo = res[0].TravelInfo.split("。").join("。\n\n");
       if (res[0].ParkingInfo) res[0].ParkingInfo = res[0].ParkingInfo + "\n\n";
@@ -95,7 +96,7 @@ const getMode = (ID, en) => {
 
 // 資料篩選功能
 const dataFilter = (arr, count = 4) => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const result = [];
     for (let i = 0; i < count; i++) {
       if (!arr.length) return;
@@ -108,9 +109,9 @@ const dataFilter = (arr, count = 4) => {
 };
 
 //  整理雜亂資料
-const dataRegular = (arr) => {
-  return new Promise((resolve) => {
-    arr.forEach((item) => {
+const dataRegular = arr => {
+  return new Promise(resolve => {
+    arr.forEach(item => {
       if (item.StartTime) item.StartTime = item.StartTime.split("T")[0];
       if (item.EndTime) item.EndTime = item.EndTime.split("T")[0];
       if (item.StartTime === item.EndTime) item.Date = item.EndTime;
@@ -125,5 +126,5 @@ export {
   getDetail,
   getMode,
   dataFilter,
-  dataRegular,
+  dataRegular
 };

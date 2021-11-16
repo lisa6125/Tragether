@@ -138,7 +138,6 @@ export default {
       getDetail(this.$route.params.ID)
       .then((res)=>{
         this.datailContent = res
-        console.log(res)
       })
       .catch((err)=>{
         console.log(err)
@@ -148,7 +147,6 @@ export default {
   mounted(){
     this.initGet();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-
   }
 }
 </script>

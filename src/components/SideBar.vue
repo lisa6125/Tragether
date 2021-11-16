@@ -1,6 +1,6 @@
 <template>
   <div class="SideBar">
-    <div class="logo">
+    <div class="logo" @click="$router.push('/')">
       <div class="animation-style" ref="animation"></div>
     </div>
     <div class="selction_city">
@@ -50,27 +50,28 @@
         </div>
       </div>
       <div class="show_district" :class="{openDistrict:sideBarOpenDistrictStatus && selectCity !=='選擇城市'}">
+        <div class="item" @click="choseDistrict('全部')" :class="{ active:selectDistrict==='全部'}">全部</div>
         <div class="item" v-for="district,idx in filterDistrict" :key="idx" @click="choseDistrict(district)" :class="{ active:selectDistrict===district}">{{district}}</div>
       </div>
     </div>
     <div class="keyword">
-      <input type="text" placeholder="輸入關鍵字">
+      <input type="text" placeholder="輸入關鍵字" v-model="searchKeyword">
     </div>
     <div class="data_mode">
-      <div class="mode_item" @click="searchItemsHandler('ScenicSpot')" :class="{active: searchItems.indexOf('ScenicSpot') != -1}">
+      <div class="mode_item" @click="searchItemsHandler('ScenicSpot')" :class="{active: searchItem === 'ScenicSpot'}">
         <img src="../assets/icon/spot.png" alt="">
       </div>
-      <div class="mode_item" @click="searchItemsHandler('Restaurant')" :class="{active: searchItems.indexOf('Restaurant') != -1}">
+      <div class="mode_item" @click="searchItemsHandler('Restaurant')" :class="{active: searchItem=== 'Restaurant'}">
         <img src="../assets/icon/food.png" alt="">
       </div>
-      <div class="mode_item" @click="searchItemsHandler('Activity')" :class="{active: searchItems.indexOf('Activity') != -1}">
+      <div class="mode_item" @click="searchItemsHandler('Activity')" :class="{active: searchItem=== 'Activity'}">
         <img src="../assets/icon/active.png" alt="">
       </div>
-      <div class="mode_item" @click="searchItemsHandler('Hotel')" :class="{active: searchItems.indexOf('Hotel') != -1}">
+      <div class="mode_item" @click="searchItemsHandler('Hotel')" :class="{active: searchItem=== 'Hotel'}">
         <img src="../assets/icon/hotel.png" alt="">
       </div>
     </div>
-    <div class="goSearch">
+    <div class="goSearch" @click="sendSearch()">
       <span>搜索</span>
       <div class="btn">
         <img src="../assets/icon/loupe.png" alt="">
@@ -90,7 +91,8 @@ export default {
       selectCity:'選擇城市',
       selectDistrict:'選擇區域',
       animationSpeed: 1,
-      searchItems:[]
+      searchItem:'',
+      searchKeyword:''
     }
   },
   props:["sideBarOpenCityStatus","sideBarOpenDistrictStatus"],
@@ -129,12 +131,30 @@ export default {
       this.selectDistrict = item
     },
     searchItemsHandler(item){
-      if(this.searchItems.indexOf(item) != -1){
-        this.searchItems.splice(this.searchItems.indexOf(item),1)
-        console.log(this.searchItems.indexOf(item))
-      }else{
-        this.searchItems.push(item)
+      // if(this.searchItems.indexOf(item) != -1){
+      //   this.searchItems.splice(this.searchItems.indexOf(item),1)
+      // }else{
+      //   this.searchItems.push(item)
+      // }
+      this.searchItem = item
+    },
+    sendSearch(){
+      let district = this.selectDistrict;
+      let Keyword = this.searchKeyword
+      if(this.selectCity === '選擇城市' ||this.searchItem === ' '){
+        return
       }
+      if(this.selectDistrict === '選擇區域' || this.selectDistrict === '全部'){
+        district = 'all';
+      }
+      // else{
+      //   district = district.slice(0,-1)
+      //   Keyword = district +' '+ this.searchKeyword
+      // }
+      if(Keyword == ''){
+        Keyword = 0
+      }
+      this.$router.push(`/searchPage/${this.searchItem}/${this.selectCity}/${district}/${Keyword}`)
     }
   },
   mounted () {
@@ -167,6 +187,9 @@ export default {
   background: $mainLightColor;
   overflow-y: auto;
   @extend %box-shadow;
+  .logo{
+    cursor: pointer;
+  }
   .data_mode{
     display: flex;
     flex-wrap: wrap;
@@ -180,7 +203,7 @@ export default {
       padding: 10px;
       border-radius: 20px;
       cursor: pointer;
-      border: 1px solid $mainWhiteColor;
+      border: 1px solid $mainLightColor;
       transition: 0.3s ease-in-out all;
       &:hover{
         transition: 0.3s ease-in-out all;
