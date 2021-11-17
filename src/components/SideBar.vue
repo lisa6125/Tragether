@@ -155,6 +155,7 @@ export default {
         Keyword = 0
       }
       this.$router.push(`/searchPage/${this.searchItem}/${this.selectCity}/${district}/${Keyword}`)
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   },
   mounted () {

@@ -1,11 +1,40 @@
 <template>
 <div class="searchPage">
   <Banner/>
-  <div class="ScenicSpot" v-if="this.$route.params.mode === 'ScenicSpot' ">1</div>
+  <div class="ScenicSpot" v-if="this.$route.params.mode === 'ScenicSpot' ">
+    <div class="spot_item"  v-for="item in result" :key="item.ID">
+      <router-link :to="`/detailPage/${item.ID}`">
+      <div class="spot_card">
+        <div class="spot_card_pic">
+          <img :src="item.Picture.PictureUrl1" :alt="item.Picture.PictureDescription1">
+        </div>
+        <div class="spot_card_content">
+          <div class="name">
+            {{item.Name}}
+          </div>
+          <div class="time"  v-if="item.OpenTime">
+            <span class="time_icon"><i class="fas fa-clock"></i></span>
+            
+            <div>{{item.OpenTime}}</div>
+          </div>
+          <div class="tag" v-if="item.Class1">
+            <span class="tag_icon">
+              <i class="fas fa-tags"></i>
+            </span>
+            <span class="tag_name" v-if="item.Class">{{item.Class}}</span>
+            <span class="tag_name" v-if="item.Class1">{{item.Class1}}</span>
+            <span class="tag_name" v-if="item.Class2">{{item.Class2}}</span>
+            <span class="tag_name" v-if="item.Class3">{{item.Class3}}</span>
+          </div>
+        </div>
+      </div>
+      </router-link>
+    </div>
+  </div>
   <div class="Restaurant" v-if="this.$route.params.mode === 'Restaurant' ">
     <div class="food_item" v-for="item in result" :key="item.ID">
       <router-link :to="`/detailPage/${item.ID}`">
-        <div class="card_food">
+        <div class="food_card">
           <img :src="item.Picture.PictureUrl1" :alt="item.PictuPictureDescription1">
           <div class="main_contain">
                   <div class="name">{{item.Name}}</div>
@@ -33,7 +62,7 @@
   <div class="Activity" v-if="this.$route.params.mode === 'Activity' ">3</div>
   <div class="Hotel" v-if="this.$route.params.mode === 'Hotel' ">4</div>
   <div class="more">
-    <div class="more_Btn" @click="getMore()">
+    <div class="more_Btn" @click="getMore()" v-if="result.length !== 0">
     查詢更多
     </div>
   </div>
@@ -41,6 +70,7 @@
     <h1>糟糕!找不到您要的資料</h1>
     <div class="animation-style" ref="animation"></div>
   </div>
+  <Footer/>
 </div>
 </template>
 
@@ -51,6 +81,7 @@ import {
   getTravelInfo,
 } from "../modules.js";
 import Banner from '@/components/Banner.vue';
+import Footer from '@/components/Footer.vue'
 import { cityLib } from "../lib.js";
 export default {
   data(){
@@ -60,7 +91,7 @@ export default {
     }
   },
   components: {
-    Banner
+    Banner,Footer
   },
   methods:{
     initGet(){
@@ -135,6 +166,85 @@ export default {
   width: calc(100% - 400px);
   padding: 0px;
 }
+.ScenicSpot{
+  width: 100%;
+  padding: 20px;
+  @extend %flex-wrap;
+  align-items: stretch;
+  .spot{
+    &_item{
+      width: 33%;
+      padding: 5px;
+      a{
+        text-decoration: none;
+      }
+    }
+    &_card{
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: stretch;
+      height: 100%;
+      &_pic{
+        width: 100%;
+        height: 300px;
+        img{
+          @extend %img-cover;
+        }
+      }
+      &_content{
+        flex: 1;
+        background: #fff;
+        color: #000;
+        text-decoration: none;
+        padding:20px 10px;
+        .name{
+          font-size: 24px;
+          letter-spacing: 2px;
+          font-weight: 600;
+          text-decoration: none;
+          margin-bottom: 20px;
+        }
+        .time{
+          display: flex;
+          &_icon{
+            margin-right: 5px;
+            color: $secondBgColor;
+          }
+          div{
+            width: 90%;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; //行數
+            -webkit-box-orient: vertical;
+            white-space: normal;
+            overflow: hidden;
+            line-height: 1.2;
+          }
+        }
+        .tag{
+          &_icon{
+            margin-right: 5px;
+            color: $secondBgColor;
+          }
+          &_name{
+            padding: 5px 10px;
+            border: 1px solid $secondBgColor;
+            margin-right: 5px;
+            border-radius: 10px;
+            background: $secondBgColor;
+            color: #fff;
+          }
+        }
+        div{
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}
 .Restaurant{
   width: 100%;
   padding: 20px;
@@ -142,7 +252,7 @@ export default {
   .food_item{
     width: 33%;
     padding: 5px;
-    .card_food{
+    .food_card{
       width:100% ;
       height: 450px;
       border-radius: 20px;
@@ -221,7 +331,7 @@ export default {
     margin: 0 auto;
     width: 250px;
     font-size: 24px;
-    font-weight: 500;
+    font-weight: 600;
     color: #fff;
     padding: 30px 40px;
     text-align: center;
