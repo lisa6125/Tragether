@@ -140,6 +140,7 @@ export default {
     },
     cityTurnEn(){
       let cityItem = '';
+      if(this.$route.params.city === 'Taiwan') return 'Taiwan';
       cityItem = Object.keys(cityLib).filter((item) => cityLib[item].name === this.$route.params.city);
       // console.log(cityItem[0])
       return cityItem[0]
