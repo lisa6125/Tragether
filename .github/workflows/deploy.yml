@@ -21,9 +21,9 @@ jobs:
         run: |
           npm install
           npm run build
-              env:
-                VUE_APP_AppID: ${{secrets.VUE_APP_AppID}}
-                VUE_APP_AppKey: ${{secrets.VUE_APP_AppKey}}
+        env:
+          VUE_APP_AppID: ${{secrets.VUE_APP_AppID}}
+          VUE_APP_AppKey: ${{secrets.VUE_APP_AppKey}}
       # 步驟三：部署
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.1
