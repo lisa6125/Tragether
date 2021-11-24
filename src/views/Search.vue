@@ -59,8 +59,50 @@
       </router-link>
     </div>
   </div>
-  <div class="Activity" v-if="this.$route.params.mode === 'Activity' ">3</div>
-  <div class="Hotel" v-if="this.$route.params.mode === 'Hotel' ">4</div>
+  <div class="Activity" v-if="this.$route.params.mode === 'Activity' ">
+    <div class="Activity_list">
+      <div class="card_Activity" v-for="item in result" :key="item.ID" @click="$router.push(`/detailPage/${item.ID}`)">
+        <div class="pic">
+          <img :src="item.Picture.PictureUrl1" :alt="item.Picture.PictureDescription1">
+        </div>
+        <div class="main_contain">
+          <div class="name">{{item.Name}}</div>
+          <div class="time">
+            <span><i class="fas fa-clock"></i></span>
+            <span>{{item.StartTime}} ~ {{item.EndTime}}</span>
+            </div>
+          <div class="add">
+            <span><i class="fas fa-map-marker-alt"></i></span>
+            <span>{{item.Address}}</span></div>
+          <div class="tag">
+            <span><i class="fas fa-tags"></i></span>
+            <span class="tag_name" v-show="item.Class1">{{item.Class1}}</span>
+            <span class="tag_name" v-show="item.Class2">{{item.Class2}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="Hotel" v-if="this.$route.params.mode === 'Hotel' ">
+    <div class="Hotel_list">
+      <div class="card_Hotel" v-for="item in result" :key="item.ID" @click="$router.push(`/detailPage/${item.ID}`)">
+        <div class="main_contain">
+          <div class="name">{{item.Name}}</div>
+          <div class="add">
+            <span><i class="fas fa-map-marker-alt"></i></span>
+            <div>{{item.Address}}</div>
+          </div>
+          <div class="tag">
+            <span><i class="fas fa-tags"></i></span>
+            <span class="tag_name" v-show="item.Class">{{item.Class}}</span>
+          </div>
+        </div>
+        <div class="pic">
+          <img :src="item.Picture.PictureUrl1" :alt="item.Picture.PictureDescription1">
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="more">
     <div class="more_Btn" @click="getMore()" v-if="result.length !== 0">
     查詢更多
@@ -319,6 +361,235 @@ export default {
         }
         span{
           margin-left: 5px;
+        }
+      }
+    }
+  }
+}
+.Activity{
+  padding: 0 30px;
+  .Activity_list{
+    width: 100%;
+    @extend %flex-wrap;
+    position: relative;
+    transition: 0.3s ease-in-out all;
+    .card_Activity{
+      width:100% ;
+      height: 250px;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      margin-top: 20px;
+      @extend %flex-wrap;
+      &:before{
+        content: '';
+        position: absolute;
+        width: 3px;
+        height: 40px;
+        background: $secondBgColor;
+        right: 0px;
+        top: 50%;
+        transition: 0.3s ease-in-out all;
+      }
+      &:after{
+        content: '';
+        position: absolute;
+        width: 3px;
+        height: 40px;
+        background: $secondBgColor;
+        right: 0px;
+        bottom: 50%;
+        transition: 0.3s ease-in-out all;
+      }
+      &:hover{
+        @extend %box-shadow2;
+        transition: 0.3s ease-in-out all;
+        &:before{
+          right: 30px;
+          top: 48%;
+          transform: rotate(400deg);
+          transition: 0.3s ease-in-out all;
+        }
+        &:after{
+          right: 30px;
+          bottom:48%;
+          transform: rotate(-400deg);
+          transition: 0.3s ease-in-out all;
+        }
+      }
+      .main_contain{
+        width: 60%;
+        height: 100%;
+        color: rgb(0, 0, 0);
+        padding: 30px;
+        background: #fff;
+        div{
+          margin-bottom: 8px;
+          font-size: 18px;
+          margin-bottom: 20px;
+        }
+        .name{
+          font-size: 24px;
+          letter-spacing: 2px;
+          font-weight: 600;
+          margin-bottom: 30px;
+        }
+        .add{
+          span:first-child{
+            margin-right: 5px;
+          }
+        }
+        .tag{
+          margin-top: 30px;
+          &_name{
+            padding: 5px 10px;
+            border: 1px solid $secondBgColor;
+            margin-right: 5px;
+            border-radius: 10px;
+            background: $secondBgColor;
+            color: #fff;
+          }
+
+        }
+        span{
+          margin-left: 5px;
+            &:first-child{
+            color: $secondBgColor;
+          }
+        }
+      }
+      .pic{
+        width: 40%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        img{
+          @extend %img-cover;
+          @extend %position-center;
+          transition: 0.3s ease-in-out all;
+        }
+      }
+      &:hover{
+        .pic{
+          img{
+            width: 110%;
+            height: 110%;
+            transition: 0.3s ease-in-out all;
+          }
+        }
+      }
+    }
+  }
+}
+.Hotel{
+  padding: 0 30px;
+  .Hotel_list{
+    width: 100%;
+    @extend %flex-wrap;
+    position: relative;
+    transition: 0.3s ease-in-out all;
+    .card_Hotel{
+      width:calc(50% - 20px);
+      margin: 0 10px;
+      height: 200px;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      margin-top: 20px;
+      @extend %flex-wrap;
+      &:hover{
+        @extend %box-shadow2;
+        transition: 0.3s ease-in-out all;
+        &:before{
+          right: 30px;
+          top: 48%;
+          transform: rotate(400deg);
+          transition: 0.3s ease-in-out all;
+        }
+        &:after{
+          right: 30px;
+          bottom:48%;
+          transform: rotate(-400deg);
+          transition: 0.3s ease-in-out all;
+        }
+      }
+      .main_contain{
+        width: 55%;
+        height: 100%;
+        color: rgb(0, 0, 0);
+        padding: 30px;
+        background: #fff;
+        div{
+          margin-bottom: 8px;
+          font-size: 18px;
+          margin-bottom: 20px;
+        }
+        .name{
+          font-size: 24px;
+          letter-spacing: 2px;
+          font-weight: 600;
+          margin-bottom: 30px;
+          display: -webkit-box;
+          -webkit-line-clamp: 1; //行數
+          -webkit-box-orient: vertical;
+          white-space: normal;
+          overflow: hidden;
+        }
+        .add{
+          display: flex;
+          flex-wrap: wrap;
+          height: 40px;
+          line-height: 1.2;
+          span:first-child{
+            margin-right: 5px;
+            height: 40px;
+          }
+          div{
+            max-height: 40px;
+            overflow: hidden;
+            width: 80%;
+            margin: 0;
+          }
+        }
+        .tag{
+          margin-top: 30px;
+          &_name{
+            padding: 5px 10px;
+            border: 1px solid $secondBgColor;
+            margin-right: 5px;
+            border-radius: 10px;
+            background: $secondBgColor;
+            color: #fff;
+          }
+
+        }
+        span{
+          margin-left: 5px;
+            &:first-child{
+            color: $secondBgColor;
+          }
+        }
+      }
+      .pic{
+        width: 45%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        img{
+          @extend %img-cover;
+          @extend %position-center;
+          transition: 0.3s ease-in-out all;
+        }
+      }
+      &:hover{
+        .pic{
+          img{
+            width: 110%;
+            height: 110%;
+            transition: 0.3s ease-in-out all;
+          }
         }
       }
     }
