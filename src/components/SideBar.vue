@@ -131,12 +131,6 @@ export default {
       this.selectDistrict = item
     },
     searchItemsHandler(item){
-<<<<<<< HEAD
-      if(this.searchItems.indexOf(item) != -1){
-        this.searchItems.splice(this.searchItems.indexOf(item),1)
-      }else{
-        this.searchItems.push(item)
-=======
       // if(this.searchItems.indexOf(item) != -1){
       //   this.searchItems.splice(this.searchItems.indexOf(item),1)
       // }else{
@@ -152,7 +146,6 @@ export default {
       }
       if(this.selectDistrict === '選擇區域' || this.selectDistrict === '全部'){
         district = 'all';
->>>>>>> master
       }
       // else{
       //   district = district.slice(0,-1)

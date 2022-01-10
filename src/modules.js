@@ -47,7 +47,7 @@ const getTravelInfo = (mode, city, page = 1, catchNum = 18, keyword = null) => {
   if (keyword && keyword !== 0) {
     let filter = "";
     keyword.split(",").forEach(k => {
-      filter += ` or contains(Name,'${k}')`;
+      // filter += ` or contains(Name,'${k}')`;
       filter += ` or contains(Description,'${k}')`;
       filter += ` or contains(Address,'${k}')`;
       if (mode === "Restaurant" || mode === "Hotel")
@@ -81,27 +81,8 @@ const getDetail = ID => {
   let url = "https://ptx.transportdata.tw/MOTC/v2/Tourism/";
   url += `${getMode(ID)}/?$filter= contains(${getMode(ID)}ID,'${ID}')&$format=JSON`;
   return fetch(url, { headers: getAuthHeader() })
-<<<<<<< HEAD
     .then((res) => res.json())
     .then((res) => {
-=======
-    .then(res => res.json())
-    .then(res => {
-      if (res.length === 0) throw new Error();
-      res[0].modeName = getMode(res[0].ID);
-      if (res[0].Description)
-        res[0].Description = res[0].Description.split("。").join("。\n\n");
-      if (res[0].DescriptionDetail)
-        res[0].DescriptionDetail = res[0].DescriptionDetail.split("。").join(
-          "。\n\n"
-        );
-      if (res[0].TravelInfo)
-        res[0].TravelInfo = res[0].TravelInfo.split("。").join("。\n\n");
-      if (res[0].ParkingInfo) res[0].ParkingInfo = res[0].ParkingInfo + "\n\n";
-      if (res[0].StartTime) res[0].StartTime = res[0].StartTime.split("T")[0];
-      if (res[0].EndTime) res[0].EndTime = res[0].EndTime.split("T")[0];
-      if (res[0].StartTime === res[0].EndTime) res[0].Date = res[0].EndTime;
->>>>>>> master
       return res[0];
     });
 };
