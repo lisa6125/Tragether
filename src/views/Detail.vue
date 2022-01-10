@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="banner">
-      <img :src="datailContent.Picture.PictureUrl1" :alt="datailContent.Picture.PictureDescription1">
+      <img :src="datailContent.Picture.PictureUrl1">
     </div>
     <div class="info">
       <div class="title">
@@ -99,7 +99,7 @@
           width="100%"
           height="250"
           loading="lazy"
-          v-if="datailContent.modeName === 'Activity'"
+          v-if="datailContent.modeName === '活動'"
           :src="`https://maps.google.com/maps?q=${datailContent.Position.PositionLat},${datailContent.Position.PositionLon}&hl=zh-TW&z=16&amp;output=embed`"
         >
         </iframe>
@@ -125,6 +125,7 @@ import {
 } from "../modules.js";
 import Footer from '@/components/Footer.vue'
 export default {
+  name:'Detail',
   data(){
     return {
       datailContent:[]
@@ -138,7 +139,14 @@ export default {
       getDetail(this.$route.params.ID)
       .then((res)=>{
         this.datailContent = res
-        console.log(res)
+        if(this.datailContent.RestaurantName){
+          this.datailContent.Name = this.datailContent.RestaurantName;
+          this.datailContent.modeName = '餐廳'
+        }
+        if(this.datailContent.ActivityName){
+          this.datailContent.Name = this.datailContent.ActivityName;
+          this.datailContent.modeName = '活動'
+        }
       })
       .catch((err)=>{
         console.log(err)

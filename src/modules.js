@@ -2,17 +2,33 @@
 import jsSHA from "jssha/dist/sha1";
 import axios from "axios";
 const getAuthHeader = () => {
-  const AppID = process.env.VUE_APP_AppID;
-  const AppKey = process.env.VUE_APP_AppKey;
-  const GMTString = new Date().toGMTString();
-  const ShaObj = new jsSHA("SHA-1", "TEXT");
+  // const AppID = process.env.VUE_APP_AppID;
+  // const AppKey = process.env.VUE_APP_AppKey;
+  // const AppID = '1ca772b34d0e4674a447570254e17c7f';
+  // const AppKey = 'MsAueFPxwHKTwi9X166g2T9N4f0';
+    // var AppID = '1ca772b34d0e4674a447570254e17c7f';
+    // var AppKey = 'MsAueFPxwHKTwi9X166g2T9N4f0';
+
+  var AppID = "87115fa4197645d591dc6280a3be89a0";
+  var AppKey = "17xoWssRJ7HDiACPh89qKLE-NXs";
+
+  var GMTString = new Date().toGMTString();
+  var ShaObj = new jsSHA("SHA-1", "TEXT");
   ShaObj.setHMACKey(AppKey, "TEXT");
   ShaObj.update("x-date: " + GMTString);
-  const HMAC = ShaObj.getHMAC("B64");
-  const Authorization = `hmac username="${AppID}", algorithm="hmac-sha1", headers="x-date", signature="${HMAC}"`;
-  return { Authorization: Authorization, "X-Date": GMTString };
-};
+  var HMAC = ShaObj.getHMAC("B64");
+  var Authorization =
+    'hmac username="' +
+    AppID +
+    '", algorithm="hmac-sha1", headers="x-date", signature="' +
+    HMAC +
+    '"';
 
+  return {
+    Authorization: Authorization,
+    "X-Date": GMTString,
+  }; //如果要將js運行在伺服器，可額外加入 'Accept-Encoding': 'gzip'，要求壓縮以減少網路傳輸資料量
+};
 // const catchNum = 18; // 每頁顯示筆數
 // mode => ScenicSpot/Restaurant/Hotel/Activity
 // $count=true 查看 API 剩餘次數
@@ -22,7 +38,7 @@ const getTravelInfo = (mode, city, page = 1, catchNum , keyword = null) => {
   city = city === "Taiwan" ? "" : city;
   let url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/${mode}/${city}?`;
   url += `$top=${catchNum}&$skip=${(page - 1) * catchNum}&$format=JSON`;
-  url += `&$select=ID,Name,Address,Picture`;
+  // url += `&$select=ID,Name,Address,Picture`;
   if (mode === "ScenicSpot") url += ",Class1,Class2,Class3,OpenTime,TicketInfo";
   if (mode === "Restaurant") url += ",Class,OpenTime,Phone";
   if (mode === "Hotel") url += ",Class";
@@ -50,7 +66,7 @@ const getTravelInfo = (mode, city, page = 1, catchNum , keyword = null) => {
 const getNearbyInfo = (mode, lat, lon, page = 1) => {
   let url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/${mode}?`;
   url += `$top=${catchNum}&$skip=${(page - 1) * catchNum}&$format=JSON`;
-  url += `&$select=ID,Name,Address,Picture`;
+  // url += `&$select=ID,Name,Address,Picture`;
   if (mode === "ScenicSpot") url += ",Class1,Class2,Class3,OpenTime,TicketInfo";
   if (mode === "Restaurant") url += ",Class,OpenTime";
   if (mode === "Hotel") url += ",Class";
@@ -63,34 +79,21 @@ const getNearbyInfo = (mode, lat, lon, page = 1) => {
 // 取得單筆資料
 const getDetail = (ID) => {
   let url = "https://ptx.transportdata.tw/MOTC/v2/Tourism/";
-  url += `${getMode(ID, true)}/?$filter=ID eq '${ID}'&$format=JSON`;
+  url += `${getMode(ID)}/?$filter= contains(${getMode(ID)}ID,'${ID}')&$format=JSON`;
   return fetch(url, { headers: getAuthHeader() })
     .then((res) => res.json())
     .then((res) => {
-      if (res.length === 0) throw new Error();
-      res[0].modeName = getMode(res[0].ID);
-      if (res[0].Description)
-        res[0].Description = res[0].Description.split("。").join("。\n\n");
-      if (res[0].DescriptionDetail)
-        res[0].DescriptionDetail =
-          res[0].DescriptionDetail.split("。").join("。\n\n");
-      if (res[0].TravelInfo)
-        res[0].TravelInfo = res[0].TravelInfo.split("。").join("。\n\n");
-      if (res[0].ParkingInfo) res[0].ParkingInfo = res[0].ParkingInfo + "\n\n";
-      if (res[0].StartTime) res[0].StartTime = res[0].StartTime.split("T")[0];
-      if (res[0].EndTime) res[0].EndTime = res[0].EndTime.split("T")[0];
-      if (res[0].StartTime === res[0].EndTime) res[0].Date = res[0].EndTime;
       return res[0];
     });
 };
 
 // 偵測顯示模式;
-const getMode = (ID, en) => {
+const getMode = (ID) => {
   const tag = ID.split("_")[0];
-  if (tag === "C1") return en ? "ScenicSpot" : "景點";
-  if (tag === "C2") return en ? "Activity" : "活動";
-  if (tag === "C3") return en ? "Restaurant" : "餐飲";
-  if (tag === "C4") return en ? "Hotel" : "旅宿";
+  if (tag === "C1") return  "ScenicSpot";
+  if (tag === "C2") return  "Activity" ;
+  if (tag === "C3") return "Restaurant" ;
+  if (tag === "C4") return  "Hotel";
 };
 
 // 資料篩選功能

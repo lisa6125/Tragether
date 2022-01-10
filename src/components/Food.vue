@@ -5,8 +5,9 @@
       </div>
       <div class="food_list">
         <swiper class="swiper" :options="swiperOption">
-          <swiper-slide v-for="item in foodArr" :key="item.ID">
-            <router-link :to="`/detailPage/${item.ID}`">
+          <swiper-slide v-for="item in foodArr" :key="item.RestaurantID">
+            <router-link :to="`/detailPage/${item.RestaurantID
+}`">
               <div class="card_food">
               <img :src="item.Picture.PictureUrl1" :alt="item.Picture.PictureDescription1">
               <div class="main_contain">

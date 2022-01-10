@@ -4,7 +4,9 @@
         <img src="../assets/icon/activity_title.png" alt="">
       </div>
       <div class="activity_list">
-        <div class="card_activity" v-for="item in activityArr" :key="item.ID" @click="$router.push(`/detailPage/${item.ID}
+        <div class="card_activity" v-for="item in activityArr" :key="item.ActivityID
+" @click="$router.push(`/detailPage/${item.ActivityID
+}
 `)">
           <div class="pic">
             <img :src="item.Picture.PictureUrl1" :alt="item.Picture.PictureDescription1">

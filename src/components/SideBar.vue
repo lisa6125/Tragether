@@ -131,7 +131,6 @@ export default {
     searchItemsHandler(item){
       if(this.searchItems.indexOf(item) != -1){
         this.searchItems.splice(this.searchItems.indexOf(item),1)
-        console.log(this.searchItems.indexOf(item))
       }else{
         this.searchItems.push(item)
       }
