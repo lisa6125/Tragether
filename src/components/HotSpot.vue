@@ -4,43 +4,57 @@
         <img src="../assets/icon/hot_spot.png" alt="">
       </div>
       <div class="box">
-        <div class="col">
-          <div class="pic">
-            <img src="https://www.taiwan10000.com/wp-content/uploads/2017/01/%E4%B9%9D%E4%BB%BD1-595x397.jpg" alt="九份">
-            <div class="name">九份</div>
+          <div class="col">
+            <router-link :to="`/searchPage/ScenicSpot/Taiwan/all/九份`">
+              <div class="pic">
+                <img src="https://www.taiwan10000.com/wp-content/uploads/2017/01/%E4%B9%9D%E4%BB%BD1-595x397.jpg" alt="九份">
+                <div class="name">九份</div>
+              </div>
+            </router-link>
           </div>
+        <div class="col half">
+          <div class="pic_half">
+            <router-link :to="`/searchPage/ScenicSpot/Taiwan/all/日月潭`">
+              <img src="https://www.taiwan10000.com/wp-content/uploads/2017/04/%E6%97%A5%E6%9C%88%E6%BD%AD1-595x397.jpg" alt="日月潭">
+              <div class="name">日月潭</div>
+            </router-link>
+          </div>
+          <div class="pic_half">
+            <router-link :to="`/searchPage/ScenicSpot/Taiwan/all/墾丁`">
+              <img src="https://www.taiwan10000.com/wp-content/uploads/2017/04/%E5%A2%BE%E4%B8%81-595x397.jpg" alt="墾丁">
+              <div class="name">墾丁</div>
+            </router-link>
+          </div>
+        </div>
+        <div class="col">
+            <router-link :to="`/searchPage/ScenicSpot/Taiwan/all/太魯閣`">
+              <div class="pic">
+                <img src="https://www.taiwan10000.com/wp-content/uploads/2017/04/%E5%A4%AA%E9%AD%AF%E9%96%A3-595x397.jpg" alt="太魯閣">
+                <div class="name">太魯閣</div>
+              </div>
+            </router-link>
         </div>
         <div class="col half">
           <div class="pic_half">
-            <img src="https://www.taiwan10000.com/wp-content/uploads/2017/04/%E6%97%A5%E6%9C%88%E6%BD%AD1-595x397.jpg" alt="日月潭">
-            <div class="name">日月潭</div>
+            <router-link :to="`/searchPage/ScenicSpot/Taiwan/all/阿里山`">
+              <img src="https://www.taiwan10000.com/wp-content/uploads/2017/03/%E9%98%BF%E9%87%8C%E5%B1%B1%E5%B0%8F%E7%81%AB%E8%BB%8A-595x337.jpg" alt="阿里山">
+              <div class="name">阿里山</div>
+            </router-link>
           </div>
           <div class="pic_half">
-            <img src="https://www.taiwan10000.com/wp-content/uploads/2017/04/%E5%A2%BE%E4%B8%81-595x397.jpg" alt="墾丁">
-            <div class="name">墾丁</div>
+            <router-link :to="`/searchPage/ScenicSpot/Taiwan/all/野柳`">
+              <img src="https://www.taiwan10000.com/wp-content/uploads/2017/03/%E7%87%AD%E5%8F%B0%E7%9F%B3-595x382.jpg" alt="野柳">
+              <div class="name">野柳</div>
+            </router-link>
           </div>
         </div>
         <div class="col">
-          <div class="pic">
-            <img src="https://www.taiwan10000.com/wp-content/uploads/2017/04/%E5%A4%AA%E9%AD%AF%E9%96%A3-595x397.jpg" alt="太魯閣">
-            <div class="name">太魯閣</div>
-          </div>
-        </div>
-        <div class="col half">
-          <div class="pic_half">
-            <img src="https://www.taiwan10000.com/wp-content/uploads/2017/03/%E9%98%BF%E9%87%8C%E5%B1%B1%E5%B0%8F%E7%81%AB%E8%BB%8A-595x337.jpg" alt="阿里山">
-            <div class="name">阿里山</div>
-          </div>
-          <div class="pic_half">
-            <img src="https://www.taiwan10000.com/wp-content/uploads/2017/03/%E7%87%AD%E5%8F%B0%E7%9F%B3-595x382.jpg" alt="野柳">
-            <div class="name">野柳</div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="pic">
-            <img src="https://www.taiwan10000.com/wp-content/uploads/2017/01/8ea94f54-42a5-45d4-ade1-6b3e382dd7c0-595x397.jpg" alt="平溪">
-            <div class="name">平溪</div>
-          </div>
+          <router-link :to="`/searchPage/ScenicSpot/Taiwan/all/平溪`">
+            <div class="pic">
+              <img src="https://www.taiwan10000.com/wp-content/uploads/2017/01/8ea94f54-42a5-45d4-ade1-6b3e382dd7c0-595x397.jpg" alt="平溪">
+              <div class="name">平溪</div>
+            </div>
+          </router-link>
         </div>
       </div>
     </div>

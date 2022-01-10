@@ -3,7 +3,7 @@ import Router from "vue-router";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: "/",
@@ -11,8 +11,8 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "Home" */ "./views/Home.vue"),
       meta: {
-        title: "Tragether",
-      },
+        title: "Tragether"
+      }
     },
     {
       path: "/detailPage/:ID",
@@ -20,8 +20,20 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "Home" */ "./views/Detail.vue"),
       meta: {
-        title: "詳情資料",
-      },
+        title: "詳情資料"
+      }
     },
-  ],
+    {
+      path: "/searchPage/:mode/:city/:district/:keyword",
+      name: "searchPage",
+      component: () =>
+        import(/* webpackChunkName: "Home" */ "./views/Search.vue"),
+      meta: {
+        title: "搜索結果",
+        keepAlive: true // 需要被缓存
+      }
+    }
+  ]
 });
+
+export default router;

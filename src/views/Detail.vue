@@ -139,6 +139,7 @@ export default {
       getDetail(this.$route.params.ID)
       .then((res)=>{
         this.datailContent = res
+<<<<<<< HEAD
         if(this.datailContent.RestaurantName){
           this.datailContent.Name = this.datailContent.RestaurantName;
           this.datailContent.modeName = '餐廳'
@@ -147,6 +148,8 @@ export default {
           this.datailContent.Name = this.datailContent.ActivityName;
           this.datailContent.modeName = '活動'
         }
+=======
+>>>>>>> master
       })
       .catch((err)=>{
         console.log(err)
@@ -156,7 +159,6 @@ export default {
   mounted(){
     this.initGet();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-
   }
 }
 </script>

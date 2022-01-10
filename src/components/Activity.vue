@@ -44,7 +44,9 @@ export default {
   props:["place","ranNum",],
   methods:{
     initGet(){
-      let ranNum = Math.floor(Math.random()*30)+1;
+      if(!this.ranNum){
+        this.ranNum = Math.floor(Math.random()*10)+1;
+      }
       getTravelInfo("Activity",this.place,this.ranNum,5)
       .then((res)=>{
         this.activityArr = res

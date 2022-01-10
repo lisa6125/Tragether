@@ -5,7 +5,9 @@
     :sideBarOpenDistrictStatus="appOpenDistrictStatus"
     @sideBarOpenDistricthandler="appOpenDistrict"
     />
-      <router-view/>
+    <keep-alive>
+      <router-view :key="$route.path"/>
+    </keep-alive>
   </div>
 </template>
 
