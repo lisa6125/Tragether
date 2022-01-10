@@ -2,15 +2,8 @@
 import jsSHA from "jssha/dist/sha1";
 import axios from "axios";
 const getAuthHeader = () => {
-  // const AppID = process.env.VUE_APP_AppID;
-  // const AppKey = process.env.VUE_APP_AppKey;
-  // const AppID = '1ca772b34d0e4674a447570254e17c7f';
-  // const AppKey = 'MsAueFPxwHKTwi9X166g2T9N4f0';
-    // var AppID = '1ca772b34d0e4674a447570254e17c7f';
-    // var AppKey = 'MsAueFPxwHKTwi9X166g2T9N4f0';
-
-  var AppID = "87115fa4197645d591dc6280a3be89a0";
-  var AppKey = "17xoWssRJ7HDiACPh89qKLE-NXs";
+  const AppID = process.env.VUE_APP_AppID;
+  const AppKey = process.env.VUE_APP_AppKey;
 
   var GMTString = new Date().toGMTString();
   var ShaObj = new jsSHA("SHA-1", "TEXT");
