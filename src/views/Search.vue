@@ -2,8 +2,8 @@
 <div class="searchPage">
   <Banner/>
   <div class="ScenicSpot" v-if="this.$route.params.mode === 'ScenicSpot' ">
-    <div class="spot_item"  v-for="item in result" :key="item.ID">
-      <router-link :to="`/detailPage/${item.ID}`">
+    <div class="spot_item"  v-for="item in result" :key="item.ScenicSpotID">
+      <router-link :to="`/detailPage/${item.ScenicSpotID}`">
       <div class="spot_card">
         <div class="spot_card_pic">
           <img :src="item.Picture.PictureUrl1" :alt="item.Picture.PictureDescription1">
@@ -32,8 +32,8 @@
     </div>
   </div>
   <div class="Restaurant" v-if="this.$route.params.mode === 'Restaurant' ">
-    <div class="food_item" v-for="item in result" :key="item.ID">
-      <router-link :to="`/detailPage/${item.ID}`">
+    <div class="food_item" v-for="item in result" :key="item.RestaurantID">
+      <router-link :to="`/detailPage/${item.RestaurantID}`">
         <div class="food_card">
           <img :src="item.Picture.PictureUrl1" :alt="item.PictuPictureDescription1">
           <div class="main_contain">
@@ -61,7 +61,7 @@
   </div>
   <div class="Activity" v-if="this.$route.params.mode === 'Activity' ">
     <div class="Activity_list">
-      <div class="card_Activity" v-for="item in result" :key="item.ID" @click="$router.push(`/detailPage/${item.ID}`)">
+      <div class="card_Activity" v-for="item in result" :key="item.ActivityID" @click="$router.push(`/detailPage/${item.ActivityID}`)">
         <div class="pic">
           <img :src="item.Picture.PictureUrl1" :alt="item.Picture.PictureDescription1">
         </div>
@@ -85,7 +85,7 @@
   </div>
   <div class="Hotel" v-if="this.$route.params.mode === 'Hotel' ">
     <div class="Hotel_list">
-      <div class="card_Hotel" v-for="item in result" :key="item.ID" @click="$router.push(`/detailPage/${item.ID}`)">
+      <div class="card_Hotel" v-for="item in result" :key="item.HotelID" @click="$router.push(`/detailPage/${item.HotelID}`)">
         <div class="main_contain">
           <div class="name">{{item.Name}}</div>
           <div class="add">
