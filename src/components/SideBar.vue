@@ -141,7 +141,10 @@ export default {
     sendSearch(){
       let district = this.selectDistrict;
       let Keyword = this.searchKeyword
-      if(this.selectCity === '選擇城市' ||this.searchItem === ' '){
+      if(this.selectCity === '選擇城市'){
+        return
+      }
+      if(this.searchItem === ' '){
         return
       }
       if(this.selectDistrict === '選擇區域' || this.selectDistrict === '全部'){
