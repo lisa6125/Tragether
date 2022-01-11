@@ -144,7 +144,8 @@ export default {
       if(this.selectCity === '選擇城市'){
         return
       }
-      if(this.searchItem === ' '){
+      if(this.searchItem === ''){
+        console.log(123)
         return
       }
       if(this.selectDistrict === '選擇區域' || this.selectDistrict === '全部'){
